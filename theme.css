@@ -1,0 +1,201 @@
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:#07090f;}
+::selection{background:#4d9aff;color:#07090f;}
+@keyframes pl-scan{0%{transform:translateY(-2px);opacity:0;}8%{opacity:1;}92%{opacity:1;}100%{transform:translateY(232px);opacity:0;}}
+@keyframes pl-blink{0%,100%{opacity:1;}50%{opacity:.25;}}
+@keyframes pl-pulse{0%,100%{opacity:.5;transform:scale(1);}50%{opacity:1;transform:scale(1.25);}}
+@keyframes pl-drift{0%{transform:translate(0,0);}50%{transform:translate(0,-8px);}100%{transform:translate(0,0);}}
+@keyframes cg-rise{0%{opacity:0;transform:translateY(6px);}100%{opacity:1;transform:translateY(0);}}
+@keyframes cg-glow{0%,100%{box-shadow:0 0 6px rgba(42,208,192,0.4);}50%{box-shadow:0 0 16px rgba(42,208,192,0.9);}}
+@keyframes cg-skel{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+button{transition:filter .2s ease, transform .15s ease, background .25s ease, border-color .25s ease;}
+button:hover{filter:brightness(1.18);}
+button:active{transform:scale(0.97);}
+select:hover, input:hover{border-color:rgba(120,160,220,0.35) !important;}
+.cg-hover{transition:transform .18s ease, border-color .18s ease, background .18s ease;}
+.cg-hover:hover{transform:translateY(-1px);border-color:rgba(120,160,220,0.4) !important;}
+
+/* ===== scroll reveal + counter-up (premium section fx) ===== */
+[data-reveal]{opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,.8,.24,1), transform .9s cubic-bezier(.16,.8,.24,1);will-change:opacity,transform;}
+[data-reveal].is-visible{opacity:1;transform:translateY(0);}
+[data-reveal="left"]{transform:translateX(-32px);}
+[data-reveal="left"].is-visible{transform:translateX(0);}
+[data-reveal="right"]{transform:translateX(32px);}
+[data-reveal="right"].is-visible{transform:translateX(0);}
+[data-reveal="scale"]{transform:scale(0.92);}
+[data-reveal="scale"].is-visible{transform:scale(1);}
+.cg-card{transition:transform .3s cubic-bezier(.16,.8,.24,1), border-color .3s ease, box-shadow .3s ease, background .3s ease;}
+.cg-card:hover{transform:translateY(-4px);border-color:rgba(77,154,255,0.4) !important;box-shadow:0 20px 50px rgba(0,0,0,0.35);}
+.cg-glow-card:hover{box-shadow:0 0 0 1px rgba(77,154,255,0.3), 0 24px 60px rgba(77,154,255,0.12);}
+@keyframes cg-float-y{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+@keyframes cg-dot-patrol{
+  0%{left:65%;top:15%;}
+  6%{left:65%;top:15%;}
+  16%{left:65%;top:38%;}
+  24%{left:58%;top:38%;}
+  34%{left:58%;top:38%;}
+  44%{left:58%;top:60%;}
+  52%{left:34%;top:60%;}
+  62%{left:34%;top:60%;}
+  72%{left:34%;top:22%;}
+  80%{left:22%;top:22%;}
+  90%{left:22%;top:22%;}
+  95%{left:22%;top:15%;}
+  100%{left:65%;top:15%;}
+}
+@keyframes cg-flow-dot{0%{left:0%;opacity:0;}8%{opacity:1;}92%{opacity:1;}100%{left:100%;opacity:0;}}
+@keyframes cg-dash{to{stroke-dashoffset:0;}}
+@keyframes cg-shimmer{0%{background-position:-200% 0;}100%{background-position:200% 0;}}
+.cg-timeline-line{position:relative;}
+.cg-timeline-line::before{content:"";position:absolute;left:23px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,rgba(77,154,255,0.05),rgba(77,154,255,0.4) 15%,rgba(77,154,255,0.4) 85%,rgba(77,154,255,0.05));}
+
+/* ===== roadmap growth-curve draw-in animation ===== */
+.cg-roadmap-line{stroke-dasharray:1500;stroke-dashoffset:1500;transition:stroke-dashoffset 2.4s cubic-bezier(.65,0,.35,1);}
+[data-reveal].is-visible .cg-roadmap-line{stroke-dashoffset:0;}
+[data-reveal="dot"]{opacity:0;transition:opacity .5s ease;}
+[data-reveal="dot"].is-visible{opacity:1;}
+
+/* ======================================================================
+   RESPONSIVE LAYER — retrofits the inline-styled page for tablet & mobile.
+   The DCLogic runtime re-serialises every inline style to the normalised
+   "prop: value" form (space after ':' and after ',' in functions), so the
+   attribute selectors below match that exact spacing. !important overrides
+   the inline declarations without touching the markup. Widest → narrowest.
+   ====================================================================== */
+
+/* -------------------- TABLET  (≤ 960px) -------------------- */
+@media (max-width: 960px){
+  /* hero: two columns → stack */
+  header[style*="grid-template-columns: 1.05fr 0.95fr"]{
+    grid-template-columns: 1fr !important;
+    gap: 44px !important;
+  }
+  /* feature sections (digital twin / dashboard / emr): two columns → stack */
+  [style*="grid-template-columns: 1fr 1fr"][style*="gap: 56px"]{
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+  /* card grids */
+  [style*="grid-template-columns: repeat(5, 1fr)"]{ grid-template-columns: repeat(3, 1fr) !important; }
+  [style*="grid-template-columns: repeat(4, 1fr)"]{ grid-template-columns: repeat(2, 1fr) !important; }
+  [style*="grid-template-columns: repeat(3, 1fr)"]{ grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* trim big headings */
+  h1[style*="font-size: 54px"]{ font-size: 42px !important; line-height: 1.2 !important; }
+  [style*="font-size: 38px"]{ font-size: 30px !important; }
+  [style*="font-size: 36px"]{ font-size: 29px !important; }
+  [style*="font-size: 34px"]{ font-size: 27px !important; }
+  [style*="font-size: 32px"]{ font-size: 26px !important; }
+
+  /* section horizontal padding */
+  [style*="padding: 90px 40px"],
+  [style*="padding: 96px 40px"],
+  [style*="padding: 80px 40px 70px"]{
+    padding-left: 32px !important; padding-right: 32px !important;
+  }
+  nav[style*="padding: 26px 40px"]{ padding-left: 28px !important; padding-right: 28px !important; }
+
+  /* 04 · SOLUTION — the 7-node flow has min-width:920px and gets clipped
+     below ~960px. Turn the horizontal row into a clean vertical stepper. */
+  #solution [style*="min-width: 920px"]{
+    min-width: 0 !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 22px !important;
+  }
+  /* hide the horizontal connector line + moving flow dot (horizontal-only decor) */
+  #solution [style*="top: 33px"],
+  #solution [style*="top: 32px"]{ display: none !important; }
+  /* each node: full-width row, content centred */
+  #solution [style*="min-width: 920px"] > div[style*="text-align: center"]{
+    flex: none !important;
+    width: 100% !important;
+  }
+}
+
+/* -------------------- MOBILE  (≤ 600px) -------------------- */
+@media (max-width: 600px){
+  /* nav: shrink + prevent overlap */
+  nav[style*="padding: 26px 40px"]{ padding: 18px 18px !important; }
+  nav[style*="padding: 26px 40px"] > div[style*="gap: 36px"]{ gap: 14px !important; }
+
+  /* compact vertical section padding (generic first, specific overrides after) */
+  [style*="padding: 90px 40px"]{ padding: 52px 20px !important; }
+  [style*="padding: 96px 40px"]{ padding: 52px 20px !important; }
+  [style*="padding: 80px 40px 70px"]{ padding: 48px 20px 44px !important; }
+  [style*="padding: 90px 40px 80px"]{ padding: 52px 20px 44px !important; }
+  [style*="padding: 90px 40px 100px"]{ padding: 52px 20px 60px !important; }
+  header[style*="padding: 54px 40px 90px"]{ padding: 22px 20px 52px !important; }
+
+  /* card grids: densest layout */
+  [style*="grid-template-columns: repeat(5, 1fr)"]{ grid-template-columns: repeat(2, 1fr) !important; }
+  [style*="grid-template-columns: repeat(4, 1fr)"]{ grid-template-columns: repeat(2, 1fr) !important; }
+  [style*="grid-template-columns: repeat(3, 1fr)"]{ grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* headings */
+  h1[style*="font-size: 54px"]{ font-size: 31px !important; line-height: 1.22 !important; margin-bottom: 18px !important; }
+  [style*="font-size: 38px"]{ font-size: 24px !important; }
+  [style*="font-size: 36px"]{ font-size: 23px !important; }
+  [style*="font-size: 34px"]{ font-size: 23px !important; }
+  [style*="font-size: 32px"]{ font-size: 22px !important; }
+  [style*="font-size: 29px"]{ font-size: 22px !important; }
+  [style*="font-size: 26px"]{ font-size: 20px !important; }
+
+  /* hero copy + stat */
+  header p[style*="font-size: 18px"]{ font-size: 15px !important; }
+  header [style*="font-size: 34px"]{ font-size: 27px !important; }
+
+  /* comparison table: keep 3 columns, shrink */
+  [style*="grid-template-columns: 1.1fr 1fr 1fr"]{
+    padding-left: 12px !important; padding-right: 12px !important; font-size: 11px !important;
+  }
+
+  /* digital-twin floating patient panel → near full width */
+  [style*="width: 312px"]{ width: calc(100vw - 32px) !important; }
+}
+
+/* ======================================================================
+   MODALS (full-screen overlays) — Digital Twin & Admin Dashboard.
+   These are desktop control-centre layouts; below ~700px we restructure
+   them into a stacked, scrollable form so nothing overlaps or is clipped.
+   ====================================================================== */
+@media (max-width: 700px){
+
+  /* -------- Digital Twin modal (standalone, z-index 215) -------- */
+  /* header: tighter, title smaller, drop the mono sub-label, no button wrap */
+  [style*="padding: 18px 30px"]{ padding: 12px 14px !important; }
+  [style*="padding: 18px 30px"] span[style*="font-size: 17px"]{ font-size: 13px !important; letter-spacing: 0.4px !important; }
+  [style*="padding: 18px 30px"] span[style*="font-size: 10.5px"]{ display: none !important; }
+  [style*="padding: 18px 30px"] button{ white-space: nowrap !important; padding: 8px 12px !important; }
+  /* bottom HUDs: robot-dispatch → full-width bottom; legend → top-right */
+  [style*="left: 30px"][style*="bottom: 28px"]{
+    left: 12px !important; right: 12px !important; bottom: 12px !important; max-width: none !important;
+  }
+  [style*="right: 30px"][style*="bottom: 28px"]{
+    top: 58px !important; right: 12px !important; bottom: auto !important; left: auto !important;
+    padding: 12px 14px !important;
+  }
+
+  /* -------- Admin Dashboard modal (z-index 216) -------- */
+  /* make the whole overlay a normal, vertically-scrollable stack */
+  [style*="z-index: 216"]{ display: block !important; overflow-y: auto !important; }
+  /* top bar: allow wrapping, keep buttons intact */
+  [style*="padding: 12px 22px"]{ flex-wrap: wrap !important; padding: 10px 14px !important; gap: 8px !important; }
+  [style*="padding: 12px 22px"] > div{ flex-wrap: wrap !important; row-gap: 8px !important; }
+  [style*="padding: 12px 22px"] button{ white-space: nowrap !important; }
+  /* body: sidebar + ward → stacked single column */
+  [style*="grid-template-columns: 230px 1fr"]{ display: block !important; }
+  /* ward canvas holder needs an explicit height (its canvas is absolute) */
+  [style*="position: relative"][style*="min-height: 0px"][style*="background: rgb(7, 10, 17)"]{
+    height: 62vh !important; min-height: 380px !important;
+  }
+  /* bottom control panels: 4-up row → single column, natural height */
+  [style*="grid-template-columns: 1.15fr 1.25fr"]{
+    grid-template-columns: 1fr !important; height: auto !important; gap: 12px !important;
+  }
+  [style*="grid-template-columns: 1.15fr 1.25fr"] > div{ min-height: 200px !important; }
+  /* admin ward robot-control HUD → full width */
+  [style*="left: 18px"][style*="max-width: 330px"]{
+    left: 12px !important; right: 12px !important; max-width: none !important;
+  }
+}
